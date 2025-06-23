@@ -3,8 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import { ContinentDetails } from "./components/continent/continentDetails";
 import { BrowserRouter as Router, Route,  Routes, Navigate } from "react-router-dom";
-import {ContinentDashboard} from "./components/continent/continentDashboard"
-
+import {ContinentDashboard} from "./components/continent/continentDashboard";
+import {ComponentEdit} from "./components/continent/componentEdit";
 
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
             <Route path="/" element={<Navigate to="/overview"/>}/>
             <Route path="/dashboard" element={<ContinentDashboard/>}/>
             <Route path="/overview" element={<ContinentDetails/>}/>
+            <Route path="/edit-component" element={<ComponentEdit/>}/>
           </Routes>
         </Router>
       

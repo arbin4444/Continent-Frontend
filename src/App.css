@@ -36,3 +36,42 @@
     transform: rotate(360deg);
   }
 } */
+
+.main-editFlexDiv{
+  display: flex;
+  justify-content: center;
+}
+.sub-editFlexDiv{
+  width: 679px;
+  margin:140px 0 0 0;
+}
+.continentName-grp.css-ylztl4-euiFlexGroup-responsive-l-flexStart-center-row{
+  margin : 0 0 20px 0;
+}
+.continentPopulation-grp.css-1drqwgc-euiFlexGroup-responsive-l-flexStart-stretch-row{
+  margin : 0 0 20px 0;
+}
+.continentArea-grp.css-1drqwgc-euiFlexGroup-responsive-l-flexStart-stretch-row{
+  margin : 0 0 20px 0;
+}
+.continentDensity-grp.css-1drqwgc-euiFlexGroup-responsive-l-flexStart-stretch-row{
+  margin : 0 0 20px 0;
+}
+.continentCountry-grp.css-1drqwgc-euiFlexGroup-responsive-l-flexStart-stretch-row{
+  margin : 0 0 20px 0;
+}
+.continentName-grp .css-9sbomz-euiFlexItem-grow-1{
+ margin: 0 0 0 137px;
+}
+.continentPopulation-grp .css-9sbomz-euiFlexItem-grow-1{
+ margin: 0 0 0 138px;
+}
+.continentArea-grp .css-9sbomz-euiFlexItem-grow-1{
+  margin: 0 0 0 182px;
+}
+.continentDensity-grp .css-9sbomz-euiFlexItem-grow-1{
+  margin: 0 0 0 119px;
+}
+.continentCountry-grp .css-9sbomz-euiFlexItem-grow-1{
+  margin : 0 0 0 145px;
+}

@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { useGetContinentQuery } from "../../Redux/services/continentServices";
 import { ComponentTab } from "../../sharedComponent/componentTab";
+import { useNavigate } from "react-router-dom";
 import {
   Criteria,
   EuiBasicTable,
@@ -35,7 +36,8 @@ export interface Continent {
 export const ContinentDetails: React.FC = () => {
   const { data: continentData, isError, isLoading } = useGetContinentQuery();
 
-  //For Tabs
+  //For Edit page
+  const navigate = useNavigate();
   
 
   //Pop Over
@@ -283,6 +285,8 @@ export const ContinentDetails: React.FC = () => {
                   onClick={() => {
                     closePopOver();
                     setIsEditFlyoutVisible(true);
+                    navigate("/edit-component");
+
                   }}
                 >
                   Edit
