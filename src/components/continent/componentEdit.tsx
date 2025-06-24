@@ -6,6 +6,11 @@ import {
   EuiText,
 } from "@elastic/eui";
 import React from "react";
+import { UseDispatch,useSelector } from "react-redux";
+import {setSelectedContinent} from "../../Redux/slices/continentSlice";
+import {clearSelectedContinent} from "../../Redux/slices/continentSlice"
+
+
 
 export const ComponentEdit: React.FC = () => {
   return (
