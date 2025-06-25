@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { Store } from "./Redux/store";
 import { EuiProvider } from "@elastic/eui";
+import "@elastic/charts/dist/theme_light.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,9 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <EuiProvider colorMode="light">
-    <Provider store={Store}>
-      <App />
-    </Provider>
+      <Provider store={Store}>
+        <App />
+      </Provider>
     </EuiProvider>
   </React.StrictMode>
 );

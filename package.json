@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@elastic/charts": "^70.1.0",
     "@elastic/datemath": "^5.0.3",
     "@elastic/eui": "^103.0.0",
     "@elastic/eui-theme-borealis": "^2.0.0",
@@ -18,6 +19,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "moment": "^2.30.1",
+    "moment-timezone": "^0.6.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
