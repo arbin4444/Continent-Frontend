@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useGetContinentQuery } from "../../Redux/services/continentServices";
+import {setSelectedContinent} from "../../Redux/slices/continentSlice"
 import { ComponentTab } from "../../sharedComponent/componentTab";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   Criteria,
   EuiBasicTable,
@@ -19,8 +21,6 @@ import {
   EuiFlyoutHeader,
   EuiIcon,
   EuiPopover,
-  EuiTabbedContent,
-  EuiText,
   EuiTitle,
 } from "@elastic/eui";
 
@@ -35,6 +35,8 @@ export interface Continent {
 
 export const ContinentDetails: React.FC = () => {
   const { data: continentData, isError, isLoading } = useGetContinentQuery();
+
+  const dispatch= useDispatch();
 
   //For Edit page
   const navigate = useNavigate();
@@ -284,7 +286,8 @@ export const ContinentDetails: React.FC = () => {
                 <EuiButtonEmpty
                   onClick={() => {
                     closePopOver();
-                    setIsEditFlyoutVisible(true);
+                    
+                    dispatch(setSelectedContinent(item))
                     navigate("/edit-component");
 
                   }}
