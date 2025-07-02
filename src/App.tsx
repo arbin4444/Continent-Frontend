@@ -5,6 +5,7 @@ import { ContinentDetails } from "./components/continent/continentDetails";
 import { BrowserRouter as Router, Route,  Routes, Navigate } from "react-router-dom";
 import {ContinentDashboard} from "./components/continent/continentDashboard";
 import {ComponentEdit} from "./components/continent/componentEdit";
+import {AddComponent} from "./components/continent/addComponent";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/dashboard" element={<ContinentDashboard/>}/>
             <Route path="/overview" element={<ContinentDetails/>}/>
             <Route path="/edit-component" element={<ComponentEdit/>}/>
+            <Route path="/add-component" element={<AddComponent/>}/>
           </Routes>
         </Router>
       

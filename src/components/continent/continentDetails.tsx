@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useGetContinentQuery } from "../../Redux/services/continentServices";
 import {setSelectedContinent} from "../../Redux/slices/continentSlice"
 import { ComponentTab } from "../../sharedComponent/componentTab";
+import {useDeleteContinentMutation} from "../../Redux/services/continentServices"
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import {ToastType} from "./componentEdit"
 import {
   Criteria,
   EuiBasicTable,
@@ -19,6 +21,7 @@ import {
   EuiFlyoutBody,
   EuiFlyoutFooter,
   EuiFlyoutHeader,
+  EuiGlobalToastList,
   EuiIcon,
   EuiPopover,
   EuiTitle,
@@ -35,6 +38,8 @@ export interface Continent {
 
 export const ContinentDetails: React.FC = () => {
   const { data: continentData, isError, isLoading } = useGetContinentQuery();
+
+  const [deleteContinent]= useDeleteContinentMutation();
 
   const dispatch= useDispatch();
 
@@ -64,9 +69,25 @@ export const ContinentDetails: React.FC = () => {
 
   //For Modal
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [continentIdToDelete,setContinentIdToDelete]= useState<string | null>(null);
 
-  const showModal = () => setIsDeleteModalVisible(true);
+  const showModal = (id:string) =>{
+    setContinentIdToDelete(id) 
+    setIsDeleteModalVisible(true)
+  };
   const closeModal = () => setIsDeleteModalVisible(false);
+
+  //For Toast
+  const [toast,setToast]= useState<ToastType[]>([]);
+
+  const removeToast=()=>{
+    setToast([]);
+  }
+
+  // const handleDeleteIcon=(item:Continent)=>{
+  //   setContinentIdToDelete(item._id);
+  //   showModal();
+  // }
 
   //Table
   const [pageIndex, setPageIndex] = useState(0);
@@ -299,7 +320,8 @@ export const ContinentDetails: React.FC = () => {
                 <EuiButtonEmpty
                   onClick={() => {
                     closePopOver();
-                    showModal();
+                  
+                    showModal(item._id);
                   }}
                 >
                   Delete
@@ -335,7 +357,9 @@ export const ContinentDetails: React.FC = () => {
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
           <div>
-          <EuiButton>Add</EuiButton>
+          <EuiButton onClick={()=>navigate("/add-component")}>
+            Add
+          </EuiButton>
           </div>
         </EuiFlexItem>
       </EuiFlexGroup>
@@ -352,20 +376,42 @@ export const ContinentDetails: React.FC = () => {
       {isDeleteModalVisible && (
         <EuiConfirmModal
           style={{ width: 600 }}
-          title="Update subscription to Platinum?"
+          title="Delete Data Permanently"
           onCancel={closeModal}
-          onConfirm={closeModal}
+          onConfirm={async()=>{
+            if (continentIdToDelete){
+              try {
+                  await deleteContinent(continentIdToDelete).unwrap();
+                  setToast((prev)=>[
+                    ...prev,{
+                      id: "1",
+                      title : "Deleted Successfully",
+                      color : "success",
+                      text : <p>Your data is deleted </p>
+                    }
+                  ])
+                  closeModal();
+              }catch(error){
+                  console.log(error);
+              }
+            }
+          }}
           cancelButtonText="Cancel"
-          confirmButtonText="Update subscription"
+          confirmButtonText="Delete"
+          buttonColor="danger"
           defaultFocusedButton="confirm"
         >
           <p>
-            Your subscription and benefits increase immediately. If you change
-            to a lower subscription later, it will not take affect until the
-            next billing cycle.
+            Do you want to delete Permanently
           </p>
         </EuiConfirmModal>
       )}
+
+      <EuiGlobalToastList
+        toasts={toast}
+        dismissToast={removeToast}
+        toastLifeTimeMs={6000}
+      />
     </>
   );
 };

@@ -6,45 +6,40 @@ import {
   EuiGlobalToastList,
   EuiText,
 } from "@elastic/eui";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { clearSelectedContinent } from "../../Redux/slices/continentSlice";
-import { useUpdateContinentMutation } from "../../Redux/services/continentServices";
+import React, { useState } from "react";
+import { useAddContinentMutation } from "../../Redux/services/continentServices";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../../Redux/store";
+import {ToastType} from "./componentEdit"
 
-export interface ToastType {
-  id: string;
-  title: string;
-  color: any;
-  text: any;
+interface AddContinentType {
+  continentName: string;
+  totalPopulation: number;
+  area: number;
+  populationDensity: number;
+  numberOfCountries: number;
 }
 
-export const ComponentEdit: React.FC = () => {
-  const dispatch = useDispatch();
-  const selectedContinent = useSelector(
-    (state: RootState) => state.selectedContinent.data
-  );
+export const AddComponent: React.FC = () => {
+  const [formData, setFormData] = useState<AddContinentType>({
+    continentName: "",
+    totalPopulation: 0,
+    area: 0,
+    populationDensity: 0,
+    numberOfCountries: 0,
+  });
 
-  const [updateContinent] = useUpdateContinentMutation();
-
-  const [formData, setFormData] = useState(selectedContinent);
-
-  const [toast, setToast] = useState<ToastType[]>([]);
-
-  const removeToast = () => {
-    setToast([]);
-  };
+  const [addContinent] = useAddContinentMutation();
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (selectedContinent) setFormData(selectedContinent);
-  }, [selectedContinent]);
 
-  if (!formData) {
-    return <p>No continent selected for editing.</p>;
+  const [toast,setToast]=useState<ToastType[]>([]);
+
+  const removeToast =()=>{
+    setToast([])
   }
+
+
   return (
     <>
       <div className="main-editFlexDiv">
@@ -69,7 +64,7 @@ export const ComponentEdit: React.FC = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFieldText
-                value={formData.totalPopulation}
+                value={formData.totalPopulation || ""}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
@@ -86,7 +81,7 @@ export const ComponentEdit: React.FC = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFieldText
-                value={formData.area}
+                value={formData.area || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, area: Number(e.target.value) })
                 }
@@ -100,7 +95,7 @@ export const ComponentEdit: React.FC = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFieldText
-                value={formData.populationDensity}
+                value={formData.populationDensity || ""}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
@@ -117,7 +112,7 @@ export const ComponentEdit: React.FC = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFieldText
-                value={formData.numberOfCountries}
+                value={formData.numberOfCountries || ""}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
@@ -130,13 +125,7 @@ export const ComponentEdit: React.FC = () => {
           </EuiFlexGroup>
           <EuiFlexGroup className="continentEdit-btn" justifyContent="flexEnd">
             <EuiFlexItem grow={false}>
-              <EuiButtonEmpty
-                onClick={() => {
-                  dispatch(clearSelectedContinent());
-                  setFormData(null);
-                  navigate("/overview");
-                }}
-              >
+              <EuiButtonEmpty onClick={() => navigate("/overview")}>
                 Cancel
               </EuiButtonEmpty>
             </EuiFlexItem>
@@ -145,28 +134,30 @@ export const ComponentEdit: React.FC = () => {
                 onClick={async () => {
                   if (formData) {
                     try {
-                      await updateContinent({
-                        id: formData._id,
-                        ...formData,
-                      }).unwrap();
-                      dispatch(clearSelectedContinent());
-                      // navigate("/overview");
-                      setToast((prev) => [
-                        ...prev,
-                        {
-                          id: "1",
-                          title: "Successfully Updated",
-                          color: "success",
-                          text: <p>Your Data is updated </p>,
-                        },
-                      ]);
+                      await addContinent(formData).unwrap();
+                      setFormData({
+                        continentName: "",
+                        totalPopulation: 0,
+                        area: 0,
+                        populationDensity: 0,
+                        numberOfCountries: 0,
+                      });
+                      setToast((prev)=>[
+                        ...prev,{
+                            id : "1",
+                            title :" Post Completed ",
+                            color : "success",
+                            text : <p>your post is completed</p>
+
+                        }
+                      ])
                     } catch (error) {
-                      console.error("error occured", error);
+                      console.log("error", error);
                     }
                   }
                 }}
               >
-                Update
+                Add
               </EuiButtonEmpty>
             </EuiFlexItem>
           </EuiFlexGroup>
