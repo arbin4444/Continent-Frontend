@@ -4,12 +4,14 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiGlobalToastList,
+  EuiHorizontalRule,
   EuiText,
 } from "@elastic/eui";
 import React, { useState } from "react";
 import { useAddContinentMutation } from "../../Redux/services/continentServices";
 import { useNavigate } from "react-router-dom";
-import {ToastType} from "./componentEdit"
+import {ToastType} from "./componentEdit";
+import {ComponentTab} from "../../sharedComponent/componentTab"
 
 interface AddContinentType {
   continentName: string;
@@ -42,6 +44,15 @@ export const AddComponent: React.FC = () => {
 
   return (
     <>
+    <div className="add-tab">
+      <ComponentTab/>
+    </div>
+    <EuiFlexGroup className="add-title">
+      <EuiFlexItem>
+        <EuiText>Add Continent Details</EuiText>
+        <EuiHorizontalRule margin="xs"/>
+      </EuiFlexItem>
+    </EuiFlexGroup>
       <div className="main-editFlexDiv">
         <div className="sub-editFlexDiv">
           <EuiFlexGroup className="continentName-grp" alignItems="center">
@@ -58,7 +69,7 @@ export const AddComponent: React.FC = () => {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-          <EuiFlexGroup className="continentPopulation-grp">
+          <EuiFlexGroup className="continentPopulation-grp" alignItems="center">
             <EuiFlexItem grow={false}>
               <EuiText>Total Population</EuiText>
             </EuiFlexItem>
@@ -75,7 +86,7 @@ export const AddComponent: React.FC = () => {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-          <EuiFlexGroup className="continentArea-grp">
+          <EuiFlexGroup className="continentArea-grp" alignItems="center">
             <EuiFlexItem grow={false}>
               <EuiText>Total Area</EuiText>
             </EuiFlexItem>
@@ -89,7 +100,7 @@ export const AddComponent: React.FC = () => {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-          <EuiFlexGroup className="continentDensity-grp">
+          <EuiFlexGroup className="continentDensity-grp" alignItems="center">
             <EuiFlexItem grow={false}>
               <EuiText>Population Density</EuiText>
             </EuiFlexItem>
@@ -106,7 +117,7 @@ export const AddComponent: React.FC = () => {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-          <EuiFlexGroup className="continentCountry-grp">
+          <EuiFlexGroup className="continentCountry-grp" alignItems="center">
             <EuiFlexItem grow={false}>
               <EuiText>No. Of Country</EuiText>
             </EuiFlexItem>
@@ -151,6 +162,7 @@ export const AddComponent: React.FC = () => {
 
                         }
                       ])
+                      navigate("/overview");
                     } catch (error) {
                       console.log("error", error);
                     }
@@ -168,6 +180,11 @@ export const AddComponent: React.FC = () => {
           />
         </div>
       </div>
+      <EuiFlexGroup className="add-title">
+        <EuiFlexItem>
+          <EuiHorizontalRule/>
+        </EuiFlexItem>
+      </EuiFlexGroup>
     </>
   );
 };

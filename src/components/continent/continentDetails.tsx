@@ -24,6 +24,7 @@ import {
   EuiGlobalToastList,
   EuiIcon,
   EuiPopover,
+  EuiText,
   EuiTitle,
 } from "@elastic/eui";
 
@@ -302,9 +303,10 @@ export const ContinentDetails: React.FC = () => {
             isOpen={isOpen}
             closePopover={closePopOver}
           >
-            <EuiFlexGroup direction="column">
-              <EuiFlexItem>
+            <EuiFlexGroup  className="popOver-btnGroup" direction="column">
+              <EuiFlexItem grow={false}>
                 <EuiButtonEmpty
+                  iconType="pencil"
                   onClick={() => {
                     closePopOver();
                     
@@ -318,6 +320,8 @@ export const ContinentDetails: React.FC = () => {
               </EuiFlexItem>
               <EuiFlexItem>
                 <EuiButtonEmpty
+                iconType="trash"
+                color="danger"
                   onClick={() => {
                     closePopOver();
                   
@@ -339,15 +343,20 @@ export const ContinentDetails: React.FC = () => {
   if (!continentData) return <p>No data found.</p>;
   return (
     <>
-    <EuiFlexGroup direction="column">
+    <EuiFlexGroup className="overview-main" direction="column">
       <EuiFlexGroup>
         <EuiFlexItem>
           <ComponentTab/>
         </EuiFlexItem>
       </EuiFlexGroup>
+      <EuiFlexItem className="component-title">
+        <EuiText>Component Details</EuiText>
+      </EuiFlexItem>
       <EuiFlexGroup>
+      
         <EuiFlexItem>
           <EuiFieldSearch
+            className="search-continent"
             placeholder="Search Continent"
             value={searchValue}
             onChange={(e) => onSearchChange(e)}
@@ -356,7 +365,7 @@ export const ContinentDetails: React.FC = () => {
           />
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
-          <div>
+          <div className="overview-addBtn">
           <EuiButton onClick={()=>navigate("/add-component")}>
             Add
           </EuiButton>
@@ -364,12 +373,15 @@ export const ContinentDetails: React.FC = () => {
         </EuiFlexItem>
       </EuiFlexGroup>
       <EuiFlexGroup>
+        <EuiFlexItem className="continent-table">
+
         <EuiBasicTable
           items={pageOfItems}
           columns={column}
           onChange={continentOnTableChange}
           pagination={pagination}
         />
+        </EuiFlexItem>
       </EuiFlexGroup>
       </EuiFlexGroup>
       {editFlyout}

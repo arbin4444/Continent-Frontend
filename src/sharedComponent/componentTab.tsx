@@ -15,22 +15,28 @@ export const ComponentTab: React.FC = () => {
     {
       id: "overview--id",
       name: "Overview",
-      content: <><p>Continent Details</p></>,
+      content: (
+        <>
+        </>
+      ),
     },
   ];
 
-  const selectedTab =
-    location.pathname === "/overview" ? tabs[1] : tabs[0];
+  const selectedTab = location.pathname === "/overview" ? tabs[1] : tabs[0];
 
   return (
-    <EuiTabbedContent
-      tabs={tabs}
-      selectedTab={selectedTab}
-      onTabClick={(tab) => {
-        if (tab.id === "dashboard--id") navigate("/dashboard");
-        else if (tab.id === "overview--id") navigate("/overview");
-      }}
-      autoFocus="initial"
-    />
+    <>
+      <div className="tab-component">
+        <EuiTabbedContent
+          tabs={tabs}
+          selectedTab={selectedTab}
+          onTabClick={(tab) => {
+            if (tab.id === "dashboard--id") navigate("/dashboard");
+            else if (tab.id === "overview--id") navigate("/overview");
+          }}
+          autoFocus="initial"
+        />
+      </div>
+    </>
   );
 };
