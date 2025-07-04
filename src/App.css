@@ -52,6 +52,14 @@
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5) !important;
   border-color: transparent !important; */
 }
+.edit-title{
+  margin: 55px 18% 0 18%;
+}
+.edit-title .css-1rs9swf-euiText-m{
+  font-size: 22px;
+  font-weight: 600;
+}
+
 .sub-editFlexDiv .css-ylztl4-euiFlexGroup-responsive-l-flexStart-center-row{
   margin: 14px 0px 0px 0px;
 }
@@ -74,13 +82,54 @@
   margin: 0 8%;
 }
 .add-title.css-1drqwgc-euiFlexGroup-responsive-l-flexStart-stretch-row{
-  margin: 55px 20% 0 20%;
+  margin: 55px 18% 0 18%;
 }
 .add-title .css-1rs9swf-euiText-m{
   font-size: 22px;
   font-weight: 600;
 }
+@media screen and (max-width:1190px){
+  .add-title.css-1drqwgc-euiFlexGroup-responsive-l-flexStart-stretch-row{
+        margin: 55px 8% 0 8%;
+  }
 
+}
+@media screen and (max-width:767px){
+
+  .sub-editFlexDiv {
+    width: 412px;
+    margin: 40px 0 0 0;
+}
+  .continentName-grp .css-9sbomz-euiFlexItem-grow-1{
+    
+ margin:0;
+
+ 
+}
+
+
+.continentEdit-btn{
+  flex-wrap: nowrap !important;
+  justify-self: flex-end;
+
+}
+.continentPopulation-grp .css-9sbomz-euiFlexItem-grow-1{
+ margin: 0;
+}
+.continentArea-grp .css-9sbomz-euiFlexItem-grow-1{
+  margin: 0;
+}
+.continentDensity-grp .css-9sbomz-euiFlexItem-grow-1{
+  margin: 0;
+}
+.continentCountry-grp .css-9sbomz-euiFlexItem-grow-1{
+  margin : 0;
+
+}
+.sub-editFlexDiv .css-ylztl4-euiFlexGroup-responsive-l-flexStart-center-row{
+  gap: 7px ;
+}
+}
 
 /* For Continent Overview page */
 .tab-component{
@@ -88,6 +137,15 @@
 }
 .tab-component .css-19u0uwx-euiTab__content-m{
   font-size: 20px;
+}
+.component-title{
+  margin: 0 4%;
+}
+.overview-filterGrp{
+  margin: 0 6%;
+}
+.overview-tableGrp{
+  margin : 0 6%;
 }
 .component-title .css-1rs9swf-euiText-m{
   font-size: 23px;
@@ -103,14 +161,15 @@
   border-radius: 12px;
 }
 .continent-table.css-9sbomz-euiFlexItem-grow-1{
-    border-radius: 8px !important;
+  border-radius: 8px !important;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5) !important;
   border-color: transparent !important;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 .continent-table .css-f1dlzk-euiTableHeaderCell{
   font-size: 17px;
   height: 50px;
+  font-weight: 600;
 }
 .continent-table .css-9lvj88-euiTableRow-desktop{
   font-size: 15px;
@@ -122,3 +181,24 @@
 .euiPanel.euiPanel--plain.euiPanel--paddingMedium.euiPopover__panel.css-1sdpwxj-euiPanel-grow-m-m-plain-euiPopover__panel-light-isOpen-hasTransform-bottom{
   padding : 0px;
 }
+
+
+/*For Dashboard Page*/
+.dashboard-mainGrp{
+  margin : 0 8%;
+}
+.dashboard-panel{
+  margin : 0 8%;
+}
+.dashboard-title{
+  margin: 0 6%;
+}
+.dashboard-title .css-1rs9swf-euiText-m{
+  font-size: 22px;
+  font-weight: 600;
+}
+.dashboard-panel.css-145aabb-euiPanel-grow-m-m-plain-hasShadow{
+ border-radius: 14px;
+}
+
+

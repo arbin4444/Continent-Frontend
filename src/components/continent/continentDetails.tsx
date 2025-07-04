@@ -22,6 +22,7 @@ import {
   EuiFlyoutFooter,
   EuiFlyoutHeader,
   EuiGlobalToastList,
+  EuiHorizontalRule,
   EuiIcon,
   EuiPopover,
   EuiText,
@@ -350,9 +351,10 @@ export const ContinentDetails: React.FC = () => {
         </EuiFlexItem>
       </EuiFlexGroup>
       <EuiFlexItem className="component-title">
-        <EuiText>Component Details</EuiText>
+        <EuiText>Continent Details</EuiText>
+        <EuiHorizontalRule margin="xs"/>
       </EuiFlexItem>
-      <EuiFlexGroup>
+      <EuiFlexGroup className="overview-filterGrp">
       
         <EuiFlexItem>
           <EuiFieldSearch
@@ -372,7 +374,7 @@ export const ContinentDetails: React.FC = () => {
           </div>
         </EuiFlexItem>
       </EuiFlexGroup>
-      <EuiFlexGroup>
+      <EuiFlexGroup className="overview-tableGrp">
         <EuiFlexItem className="continent-table">
 
         <EuiBasicTable

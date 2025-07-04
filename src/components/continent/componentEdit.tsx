@@ -4,6 +4,7 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiGlobalToastList,
+  EuiHorizontalRule,
   EuiText,
 } from "@elastic/eui";
 import React, { useEffect, useState } from "react";
@@ -47,7 +48,11 @@ export const ComponentEdit: React.FC = () => {
   }
   return (
     <>
-      <div className="main-editFlexDiv">
+    <div className="edit-title">
+          <EuiText>Edit Continent Details</EuiText>
+          <EuiHorizontalRule margin="xs"/>
+        </div>
+      <div className="main-editFlexDiv">    
         <div className="sub-editFlexDiv">
           <EuiFlexGroup className="continentName-grp" alignItems="center">
             <EuiFlexItem grow={false}>
@@ -63,7 +68,7 @@ export const ComponentEdit: React.FC = () => {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-          <EuiFlexGroup className="continentPopulation-grp">
+          <EuiFlexGroup className="continentPopulation-grp" alignItems="center">
             <EuiFlexItem grow={false}>
               <EuiText>Total Population</EuiText>
             </EuiFlexItem>
@@ -80,7 +85,7 @@ export const ComponentEdit: React.FC = () => {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-          <EuiFlexGroup className="continentArea-grp">
+          <EuiFlexGroup className="continentArea-grp" alignItems="center">
             <EuiFlexItem grow={false}>
               <EuiText>Total Area</EuiText>
             </EuiFlexItem>
@@ -94,7 +99,7 @@ export const ComponentEdit: React.FC = () => {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-          <EuiFlexGroup className="continentDensity-grp">
+          <EuiFlexGroup className="continentDensity-grp" alignItems="center">
             <EuiFlexItem grow={false}>
               <EuiText>Population Density</EuiText>
             </EuiFlexItem>
@@ -111,7 +116,7 @@ export const ComponentEdit: React.FC = () => {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-          <EuiFlexGroup className="continentCountry-grp">
+          <EuiFlexGroup className="continentCountry-grp" alignItems="center">
             <EuiFlexItem grow={false}>
               <EuiText>No. Of Country</EuiText>
             </EuiFlexItem>
@@ -131,6 +136,7 @@ export const ComponentEdit: React.FC = () => {
           <EuiFlexGroup className="continentEdit-btn" justifyContent="flexEnd">
             <EuiFlexItem grow={false}>
               <EuiButtonEmpty
+                color="danger"
                 onClick={() => {
                   dispatch(clearSelectedContinent());
                   setFormData(null);
@@ -142,6 +148,7 @@ export const ComponentEdit: React.FC = () => {
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiButtonEmpty
+                color="success"
                 onClick={async () => {
                   if (formData) {
                     try {

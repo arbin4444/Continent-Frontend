@@ -44,9 +44,7 @@ export const AddComponent: React.FC = () => {
 
   return (
     <>
-    <div className="add-tab">
-      <ComponentTab/>
-    </div>
+    
     <EuiFlexGroup className="add-title">
       <EuiFlexItem>
         <EuiText>Add Continent Details</EuiText>
@@ -136,12 +134,16 @@ export const AddComponent: React.FC = () => {
           </EuiFlexGroup>
           <EuiFlexGroup className="continentEdit-btn" justifyContent="flexEnd">
             <EuiFlexItem grow={false}>
-              <EuiButtonEmpty onClick={() => navigate("/overview")}>
+             
+              <EuiButtonEmpty color="danger" onClick={() => navigate("/overview")}>
                 Cancel
               </EuiButtonEmpty>
+             
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
+              
               <EuiButtonEmpty
+              color="success"
                 onClick={async () => {
                   if (formData) {
                     try {
@@ -171,6 +173,7 @@ export const AddComponent: React.FC = () => {
               >
                 Add
               </EuiButtonEmpty>
+              
             </EuiFlexItem>
           </EuiFlexGroup>
           <EuiGlobalToastList
@@ -180,11 +183,6 @@ export const AddComponent: React.FC = () => {
           />
         </div>
       </div>
-      <EuiFlexGroup className="add-title">
-        <EuiFlexItem>
-          <EuiHorizontalRule/>
-        </EuiFlexItem>
-      </EuiFlexGroup>
     </>
   );
 };
