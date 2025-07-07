@@ -6,7 +6,8 @@ import { BrowserRouter as Router, Route,  Routes, Navigate } from "react-router-
 import {ContinentDashboard} from "./components/continent/continentDashboard";
 import {ComponentEdit} from "./components/continent/componentEdit";
 import {AddComponent} from "./components/continent/addComponent";
-
+import {UserLogin} from "./components/login/userLogin";
+import {UserSignup} from "./components/signup/userSignup"
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
             <Route path="/overview" element={<ContinentDetails/>}/>
             <Route path="/edit-component" element={<ComponentEdit/>}/>
             <Route path="/add-component" element={<AddComponent/>}/>
+            <Route path="/login" element={<UserLogin/>}/>
+            <Route path="/signup" element={<UserSignup/>}/>
           </Routes>
         </Router>
       
