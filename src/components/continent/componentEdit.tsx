@@ -31,6 +31,14 @@ export const ComponentEdit: React.FC = () => {
 
   const [formData, setFormData] = useState(selectedContinent);
 
+  const [errors, setErrors] = useState<{
+    continentNameError?: string;
+    totalPopulationError?: string;
+    areaError?: string;
+    populationDensityError?: string;
+    numberOfCountriesError?: string;
+  }>({});
+
   const [toast, setToast] = useState<ToastType[]>([]);
 
   const removeToast = () => {
@@ -46,13 +54,55 @@ export const ComponentEdit: React.FC = () => {
   if (!formData) {
     return <p>No continent selected for editing.</p>;
   }
+
+  const handleEditContinent = async () => {
+    const newErrors: typeof errors = {};
+
+    if (!formData.continentName.trim()) {
+      newErrors.continentNameError = "please enter continent name";
+    }
+    if (formData.totalPopulation <= 0) {
+      newErrors.totalPopulationError = "should be positive number";
+    }
+    if (formData.area <= 0) {
+      newErrors.areaError = "should be positive number";
+    }
+    if (formData.populationDensity <= 0) {
+      newErrors.populationDensityError = "should be positive number";
+    }
+    if (formData.numberOfCountries <= 0) {
+      newErrors.numberOfCountriesError = "should be positive number";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    if (formData) {
+      try {
+        await updateContinent({ id: formData._id, ...formData }).unwrap();
+        setToast([
+          {
+            id: "1",
+            color: "success",
+            title: "Update Complete",
+            text: <p>your data is updated Successfully</p>,
+          },
+        ]);
+        setErrors({});
+      } catch (errors) {
+        console.log(errors);
+      }
+    }
+  };
+
   return (
     <>
-    <div className="edit-title">
-          <EuiText>Edit Continent Details</EuiText>
-          <EuiHorizontalRule margin="xs"/>
-        </div>
-      <div className="main-editFlexDiv">    
+      <div className="edit-title">
+        <EuiText>Edit Continent Details</EuiText>
+        <EuiHorizontalRule margin="xs" />
+      </div>
+      <div className="main-editFlexDiv">
         <div className="sub-editFlexDiv">
           <EuiFlexGroup className="continentName-grp" alignItems="center">
             <EuiFlexItem grow={false}>
@@ -60,12 +110,17 @@ export const ComponentEdit: React.FC = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFieldText
+                fullWidth
+                isInvalid={!!errors.continentNameError}
                 value={formData.continentName}
                 onChange={(e) =>
                   setFormData({ ...formData, continentName: e.target.value })
                 }
                 placeholder="Enter Continent Name"
               />
+              {errors.continentNameError && (
+                <EuiText color="danger">{errors.continentNameError}</EuiText>
+              )}
             </EuiFlexItem>
           </EuiFlexGroup>
           <EuiFlexGroup className="continentPopulation-grp" alignItems="center">
@@ -74,6 +129,8 @@ export const ComponentEdit: React.FC = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFieldText
+                fullWidth
+                isInvalid={!!errors.totalPopulationError}
                 value={formData.totalPopulation}
                 onChange={(e) =>
                   setFormData({
@@ -83,6 +140,12 @@ export const ComponentEdit: React.FC = () => {
                 }
                 placeholder="Enter Total Population"
               />
+
+              {errors.totalPopulationError && (
+                <EuiText color="danger" size="s">
+                  {errors.totalPopulationError}
+                </EuiText>
+              )}
             </EuiFlexItem>
           </EuiFlexGroup>
           <EuiFlexGroup className="continentArea-grp" alignItems="center">
@@ -91,12 +154,17 @@ export const ComponentEdit: React.FC = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFieldText
+                fullWidth
+                isInvalid={!!errors.areaError}
                 value={formData.area}
                 onChange={(e) =>
                   setFormData({ ...formData, area: Number(e.target.value) })
                 }
                 placeholder="Enter Total Area"
               />
+              {errors.areaError && (
+                <EuiText color="danger">{errors.areaError}</EuiText>
+              )}
             </EuiFlexItem>
           </EuiFlexGroup>
           <EuiFlexGroup className="continentDensity-grp" alignItems="center">
@@ -105,6 +173,8 @@ export const ComponentEdit: React.FC = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFieldText
+                fullWidth
+                isInvalid={!!errors.populationDensityError}
                 value={formData.populationDensity}
                 onChange={(e) =>
                   setFormData({
@@ -114,6 +184,11 @@ export const ComponentEdit: React.FC = () => {
                 }
                 placeholder="Enter Population Density"
               />
+              {errors.populationDensityError && (
+                <EuiText color="danger">
+                  {errors.populationDensityError}
+                </EuiText>
+              )}
             </EuiFlexItem>
           </EuiFlexGroup>
           <EuiFlexGroup className="continentCountry-grp" alignItems="center">
@@ -122,6 +197,8 @@ export const ComponentEdit: React.FC = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiFieldText
+                fullWidth
+                isInvalid={!!errors.numberOfCountriesError}
                 value={formData.numberOfCountries}
                 onChange={(e) =>
                   setFormData({
@@ -131,6 +208,11 @@ export const ComponentEdit: React.FC = () => {
                 }
                 placeholder="Enter Number Of Country"
               />
+              {errors.numberOfCountriesError && (
+                <EuiText color="danger">
+                  {errors.numberOfCountriesError}
+                </EuiText>
+              )}
             </EuiFlexItem>
           </EuiFlexGroup>
           <EuiFlexGroup className="continentEdit-btn" justifyContent="flexEnd">
@@ -147,32 +229,7 @@ export const ComponentEdit: React.FC = () => {
               </EuiButtonEmpty>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
-              <EuiButtonEmpty
-                color="success"
-                onClick={async () => {
-                  if (formData) {
-                    try {
-                      await updateContinent({
-                        id: formData._id,
-                        ...formData,
-                      }).unwrap();
-                      dispatch(clearSelectedContinent());
-                      // navigate("/overview");
-                      setToast((prev) => [
-                        ...prev,
-                        {
-                          id: "1",
-                          title: "Successfully Updated",
-                          color: "success",
-                          text: <p>Your Data is updated </p>,
-                        },
-                      ]);
-                    } catch (error) {
-                      console.error("error occured", error);
-                    }
-                  }
-                }}
-              >
+              <EuiButtonEmpty color="success" onClick={handleEditContinent}>
                 Update
               </EuiButtonEmpty>
             </EuiFlexItem>

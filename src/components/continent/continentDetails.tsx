@@ -25,6 +25,7 @@ import {
   EuiHorizontalRule,
   EuiIcon,
   EuiPopover,
+  EuiTableSelectionType,
   EuiText,
   EuiTitle,
 } from "@elastic/eui";
@@ -66,7 +67,7 @@ export const ContinentDetails: React.FC = () => {
   };
 
   //for Flyout
-  const [isEditFlyoutVisible, setIsEditFlyoutVisible] = useState(false);
+  // const [isEditFlyoutVisible, setIsEditFlyoutVisible] = useState(false);
   // const [isDeleteFlyoutVisible, setIsDeleteFlyoutVisible] = useState(false);
 
   //For Modal
@@ -96,77 +97,77 @@ export const ContinentDetails: React.FC = () => {
   const [pageSize, setPageSize] = useState(5);
 
   //Flyout
-  let editFlyout;
-  const closeEditFlyout = () => setIsEditFlyoutVisible(false);
+  // let editFlyout;
+  // const closeEditFlyout = () => setIsEditFlyoutVisible(false);
   // const closeDeleteFlyout = () => setIsDeleteFlyoutVisible(false);
 
-  if (isEditFlyoutVisible) {
-    editFlyout = (
-      <EuiFlyout
-        ownFocus
-        size="s"
-        onClose={() => setIsEditFlyoutVisible(false)}
-      >
-        <EuiFlyoutHeader hasBorder>
-          <EuiTitle size="m">
-            <h2>A typical flyout</h2>
-          </EuiTitle>
-        </EuiFlyoutHeader>
-        <EuiFlyoutBody>
-          <table>
-            <tr>
-              <td>Name</td>
-              <td>
-                <EuiFieldText />
-              </td>
-            </tr>
-            <tr>
-              <td>Population</td>
-              <td>
-                <EuiFieldText />
-              </td>
-            </tr>
-            <tr>
-              <td>Area</td>
-              <td>
-                <EuiFieldText />
-              </td>
-            </tr>
-            <tr>
-              <td>Density</td>
-              <td>
-                <EuiFieldText />
-              </td>
-            </tr>
-            <tr>
-              <td>No. Of Countries</td>
-              <td>
-                <EuiFieldText />
-              </td>
-            </tr>
-          </table>
-        </EuiFlyoutBody>
-        <EuiFlyoutFooter>
-          <EuiFlexGroup justifyContent="spaceBetween">
-            <EuiFlexItem grow={false}>
-              <EuiButtonEmpty
-                iconType="cross"
-                onClick={closeEditFlyout}
-                flush="left"
-              >
-                Close
-              </EuiButtonEmpty>
-            </EuiFlexItem>
-            <EuiFlexItem grow={false}>
-              <EuiButton onClick={closeEditFlyout} fill>
-                Update
-              </EuiButton>
-            </EuiFlexItem>
-          </EuiFlexGroup>
-        </EuiFlyoutFooter>
-      </EuiFlyout>
-    );
-  }
+  // if (isEditFlyoutVisible) {
+  //   editFlyout = (
+  //     <EuiFlyout
+  //       ownFocus
+  //       size="s"
+  //       onClose={() => setIsEditFlyoutVisible(false)}
+  //     >
+  //       <EuiFlyoutHeader hasBorder>
+  //         <EuiTitle size="m">
+  //           <h2>A typical flyout</h2>
+  //         </EuiTitle>
+  //       </EuiFlyoutHeader>
+  //       <EuiFlyoutBody>
+  //         <table>
+  //           <tr>
+  //             <td>Name</td>
+  //             <td>
+  //               <EuiFieldText />
+  //             </td>
+  //           </tr>
+  //           <tr>
+  //             <td>Population</td>
+  //             <td>
+  //               <EuiFieldText />
+  //             </td>
+  //           </tr>
+  //           <tr>
+  //             <td>Area</td>
+  //             <td>
+  //               <EuiFieldText />
+  //             </td>
+  //           </tr>
+  //           <tr>
+  //             <td>Density</td>
+  //             <td>
+  //               <EuiFieldText />
+  //             </td>
+  //           </tr>
+  //           <tr>
+  //             <td>No. Of Countries</td>
+  //             <td>
+  //               <EuiFieldText />
+  //             </td>
+  //           </tr>
+  //         </table>
+  //       </EuiFlyoutBody>
+  //       <EuiFlyoutFooter>
+  //         <EuiFlexGroup justifyContent="spaceBetween">
+  //           <EuiFlexItem grow={false}>
+  //             <EuiButtonEmpty
+  //               iconType="cross"
+  //               onClick={closeEditFlyout}
+  //               flush="left"
+  //             >
+  //               Close
+  //             </EuiButtonEmpty>
+  //           </EuiFlexItem>
+  //           <EuiFlexItem grow={false}>
+  //             <EuiButton onClick={closeEditFlyout} fill>
+  //               Update
+  //             </EuiButton>
+  //           </EuiFlexItem>
+  //         </EuiFlexGroup>
+  //       </EuiFlyoutFooter>
+  //     </EuiFlyout>
+  //   );
+  // }
 
   // let deleteFlyout;
 
@@ -339,6 +340,22 @@ export const ContinentDetails: React.FC = () => {
     },
   ];
 
+  //For Selection
+  const [selectedTableItem,setSelectedTableItem]=useState<Continent[]>([]);
+  const [checked,setChecked]= useState(false);
+
+  
+
+  const onSelectionChange=(selectedTableItem: Continent[])=>{
+    setSelectedTableItem(selectedTableItem);
+
+  }
+  const selection:EuiTableSelectionType<Continent> = {
+    onSelectionChange,
+    selected : selectedTableItem,
+  }
+
+
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error loading data.</p>;
   if (!continentData) return <p>No data found.</p>;
@@ -382,11 +399,11 @@ export const ContinentDetails: React.FC = () => {
           columns={column}
           onChange={continentOnTableChange}
           pagination={pagination}
+          selection={selection}
         />
         </EuiFlexItem>
       </EuiFlexGroup>
       </EuiFlexGroup>
-      {editFlyout}
       {isDeleteModalVisible && (
         <EuiConfirmModal
           style={{ width: 600 }}
